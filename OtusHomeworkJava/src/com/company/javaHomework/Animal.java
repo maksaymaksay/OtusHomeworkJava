@@ -1,4 +1,4 @@
-package com.company;
+package com.company.javaHomework;
 
 public class Animal {
     private String name;

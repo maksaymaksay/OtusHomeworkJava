@@ -1,4 +1,4 @@
-package com.company;
+package com.company.javaHomework;
 
 public enum TypesOfAnimals {
     CAT("Cat", 1, Cat.class),
