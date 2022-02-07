@@ -10,7 +10,7 @@ import static java.time.Duration.ofSeconds;
 public class BaseTest {
 
     protected WebDriver driver;
-    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(OldTests.class);
+    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(BaseTest.class);
 
     @Before
     public void startUp() {

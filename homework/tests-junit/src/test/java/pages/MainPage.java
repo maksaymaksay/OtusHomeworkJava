@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import webDriverFactory.Browsers;
+import webDriverFactory.WDFactory;
 
 import static java.time.Duration.ofSeconds;
 
@@ -29,7 +31,7 @@ public class MainPage extends AbstractPage {
 
     public MainPage openOtusInClearBrowser() {
         driver.quit();
-        driver = new ChromeDriver();
+        driver = WDFactory.create(Browsers.CHROME);
         driver.manage().timeouts().implicitlyWait(ofSeconds(5));
         logger.info("Драйвер поднят");
         driver.get(serverConfig.url());
