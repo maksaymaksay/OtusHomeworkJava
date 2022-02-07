@@ -5,12 +5,11 @@ import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import webDriverFactory.Browsers;
 import webDriverFactory.WDFactory;
 
 import static java.time.Duration.ofSeconds;
+import static webDriverFactory.Browsers.getBrowserByStringName;
 
 public class MainPage extends AbstractPage {
     private ServerConfig serverConfig = ConfigFactory.create(ServerConfig.class);
@@ -31,7 +30,7 @@ public class MainPage extends AbstractPage {
 
     public MainPage openOtusInClearBrowser() {
         driver.quit();
-        driver = WDFactory.create(Browsers.CHROME);
+        driver = WDFactory.create(getBrowserByStringName(System.getProperty("browser")));
         driver.manage().timeouts().implicitlyWait(ofSeconds(5));
         logger.info("Драйвер поднят");
         driver.get(serverConfig.url());

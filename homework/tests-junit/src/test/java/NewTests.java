@@ -2,7 +2,6 @@ import org.apache.logging.log4j.LogManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import pages.LKPage;
 import pages.MainPage;
 
@@ -33,22 +32,23 @@ public class NewTests extends BaseTest {
                 .authOtus()
                 .entryLK();
 
-        WebDriver newDriver = lkPage.getDriver();
-        Assert.assertEquals("Евгения", newDriver.findElement(By.id("id_fname")).getAttribute("value"));
-        Assert.assertEquals("Evgeniya", newDriver.findElement(By.id("id_fname_latin")).getAttribute("value"));
-        Assert.assertEquals("Максаева", newDriver.findElement(By.id("id_lname")).getAttribute("value"));
-        Assert.assertEquals("Maksaeva", newDriver.findElement(By.id("id_lname_latin")).getAttribute("value"));
-        Assert.assertEquals("maksaymaksay", newDriver.findElement(By.id("id_blog_name")).getAttribute("value"));
-        Assert.assertEquals("21.09.1994", newDriver.findElement(By.name("date_of_birth")).getAttribute("value"));
+        this.driver = lkPage.getDriver();
+
+        Assert.assertEquals("Евгения", driver.findElement(By.id("id_fname")).getAttribute("value"));
+        Assert.assertEquals("Evgeniya", driver.findElement(By.id("id_fname_latin")).getAttribute("value"));
+        Assert.assertEquals("Максаева", driver.findElement(By.id("id_lname")).getAttribute("value"));
+        Assert.assertEquals("Maksaeva", driver.findElement(By.id("id_lname_latin")).getAttribute("value"));
+        Assert.assertEquals("maksaymaksay", driver.findElement(By.id("id_blog_name")).getAttribute("value"));
+        Assert.assertEquals("21.09.1994", driver.findElement(By.name("date_of_birth")).getAttribute("value"));
         logger.info("ФИО и дата рождения проверены");
 
-        Assert.assertEquals("Россия", newDriver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText());
-        Assert.assertEquals("Рязань", newDriver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText());
-        Assert.assertEquals("Средний (Intermediate)", newDriver.findElement(By.cssSelector("div.container__col.container__col_9.container__col_ssm-12 > div:nth-child(3) > div.container__col.container__col_9.container__col_md-8.container__col_middle > div > label > div")).getText());
+        Assert.assertEquals("Россия", driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText());
+        Assert.assertEquals("Рязань", driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText());
+        Assert.assertEquals("Средний (Intermediate)", driver.findElement(By.cssSelector("div.container__col.container__col_9.container__col_ssm-12 > div:nth-child(3) > div.container__col.container__col_9.container__col_md-8.container__col_middle > div > label > div")).getText());
         logger.info("Основная информация проверена");
 
-        Assert.assertEquals("id8666983", newDriver.findElement(By.xpath("//input[@value='id8666983']")).getAttribute("value"));
-        Assert.assertEquals("+7 920 980-15-65", newDriver.findElement(By.xpath("//input[@value='+79209801565']")).getAttribute("value"));
+        Assert.assertEquals("id8666983", driver.findElement(By.xpath("//input[@value='id8666983']")).getAttribute("value"));
+        Assert.assertEquals("+7 920 980-15-65", driver.findElement(By.xpath("//input[@value='+79209801565']")).getAttribute("value"));
         logger.info("Контактная информация проверена");
         logger.info("Все персональные данные успешно проверены");
     }
