@@ -14,7 +14,7 @@ import org.openqa.selenium.safari.SafariOptions;
 
 public class WDFactory {
 
-    public static WebDriver create(Browsers webDriverName) {
+    public static WebDriver create (Browsers webDriverName) {
         switch (webDriverName) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
@@ -34,7 +34,7 @@ public class WDFactory {
         }
     }
 
-    public static WebDriver create(Browsers webDriverName, MutableCapabilities options) {
+    public static WebDriver create (Browsers webDriverName, MutableCapabilities options) {
         switch (webDriverName) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();

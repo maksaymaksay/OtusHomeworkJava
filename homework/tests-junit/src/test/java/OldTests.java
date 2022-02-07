@@ -69,14 +69,17 @@ public class OldTests {
         Assert.assertEquals("Maksaeva", driver.findElement(By.id("id_lname_latin")).getAttribute("value"));
         Assert.assertEquals("maksaymaksay", driver.findElement(By.id("id_blog_name")).getAttribute("value"));
         Assert.assertEquals("21.09.1994", driver.findElement(By.name("date_of_birth")).getAttribute("value"));
+        logger.info("ФИО и дата рождения проверены");
 
         Assert.assertEquals("Россия", driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText());
         Assert.assertEquals("Рязань", driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText());
         Assert.assertEquals("Средний (Intermediate)", driver.findElement(By.cssSelector("div.container__col.container__col_9.container__col_ssm-12 > div:nth-child(3) > div.container__col.container__col_9.container__col_md-8.container__col_middle > div > label > div")).getText());
+        logger.info("Основная информация проверена");
 
-        // TODO: 20.01.2022 После того, как разберусь с контактной информацией - дописать ассерты на контактную информацию
-
-        logger.info("Персональные данные проверены");
+        Assert.assertEquals("id8666983", driver.findElement(By.xpath("//input[@value='id8666983']")).getAttribute("value"));
+        Assert.assertEquals("+7 920 980-15-65", driver.findElement(By.xpath("//input[@value='+79209801565']")).getAttribute("value"));
+        logger.info("Контактная информация проверена");
+        logger.info("Все персональные данные успешно проверены");
     }
 
     private void openOtus() {
@@ -162,19 +165,24 @@ public class OldTests {
         logger.info("Основная информация введена успешно");
 
         //Контактная информация
-        //Skype
-//        if (!driver.findElement(By.cssSelector(".placeholder")).getText().contains("Skype")){
-//            driver.findElement(By.cssSelector("div.js-formset > button")).click();
-//            driver.findElement(By.cssSelector(".placeholder:not(hidden)")).click();
-//            driver.findElement(By.xpath("//*[contains(text(), 'Skype')]")).click();
-//            driver.findElement(By.xpath("//*[@id=\"id_contact-0-value\"]")).sendKeys("hello");
-//        }
+        final String VK_CONTACT = "id8666983";
+        final String TG_CONTACT = "+79209801565";
 
-        //Facebook
-//        driver.findElement(By.cssSelector("div.container__row > div.container__col.container__col_9.container__col_md-8.container__col_sm-12.container__col_border-left.lk-rightbar.print-block.print-wide > div > form > div:nth-child(2) > div.container__col.container__col_12 > div:nth-child(2) > div.js-formset > div > div:nth-child(3) > div.container__col.container__col_9.container__col_ssm-12 > div > div > div > label > div > span")).click();
-//        driver.findElement(By.xpath("//*[contains(text(), 'Facebook')]")).click();
-//        driver.findElement(By.xpath("//*[@id=\"id_contact-1-value\"]")).sendKeys("hello");
-//        logger.info("Контактная информация введена успешно");
+        if (driver.findElements(By.xpath("//input[@value='" + VK_CONTACT + "']")).isEmpty()) {
+            driver.findElement(By.xpath("//button[text()='Добавить']")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/..")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/../../following-sibling::div/descendant::button[@title='VK']")).click();
+            driver.findElement(By.xpath("//div[text()='VK']/../../following-sibling::input")).clear();
+            driver.findElement(By.xpath("//div[text()='VK']/../../following-sibling::input")).sendKeys(VK_CONTACT);
+        }
+
+        if (driver.findElements(By.xpath("//input[@value='" + TG_CONTACT + "']")).isEmpty()) {
+            driver.findElement(By.xpath("//button[text()='Добавить']")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/..")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/../../following-sibling::div/descendant::button[@title='Тelegram']")).click();
+            driver.findElement(By.xpath("//div[text()='Тelegram']/../../following-sibling::input")).clear();
+            driver.findElement(By.xpath("//div[text()='Тelegram']/../../following-sibling::input")).sendKeys(TG_CONTACT);
+        }
     }
 
     private void clickSaveButton() {

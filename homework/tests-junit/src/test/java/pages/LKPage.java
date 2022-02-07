@@ -12,27 +12,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static java.time.Duration.ofSeconds;
 
 public class LKPage extends AbstractPage {
-    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(MainPage.class);
-    By mainProfile = By.cssSelector(".ic-blog-default-avatar");
-    By myProfileBtn = By.cssSelector(".header2-menu__dropdown_right > a:nth-child(1) > div > b");
+    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(LKPage.class);
 
     public LKPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    private void entryLK() {
-        WebDriverWait wait = new WebDriverWait(driver, ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(mainProfile));
-
-        WebElement icon = driver.findElement(mainProfile);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(icon).build().perform();
-        driver.findElement(myProfileBtn).click();
-        logger.info("Вход в личный кабинет осуществлен успешно");
-    }
-
-    private void fillInPersonalInfoInLK() {
+    public LKPage fillInPersonalInfoInLK() {
         //ФИО и дата рождения
         driver.findElement(By.id("id_fname")).clear();
         driver.findElement(By.id("id_fname_latin")).clear();
@@ -73,22 +60,28 @@ public class LKPage extends AbstractPage {
         logger.info("Основная информация введена успешно");
 
         //Контактная информация
-        //Skype
-//        if (!driver.findElement(By.cssSelector(".placeholder")).getText().contains("Skype")){
-//            driver.findElement(By.cssSelector("div.js-formset > button")).click();
-//            driver.findElement(By.cssSelector(".placeholder:not(hidden)")).click();
-//            driver.findElement(By.xpath("//*[contains(text(), 'Skype')]")).click();
-//            driver.findElement(By.xpath("//*[@id=\"id_contact-0-value\"]")).sendKeys("hello");
-//        }
+        final String VK_CONTACT = "id8666983";
+        final String TG_CONTACT = "+79209801565";
 
-        //Facebook
-//        driver.findElement(By.cssSelector("div.container__row > div.container__col.container__col_9.container__col_md-8.container__col_sm-12.container__col_border-left.lk-rightbar.print-block.print-wide > div > form > div:nth-child(2) > div.container__col.container__col_12 > div:nth-child(2) > div.js-formset > div > div:nth-child(3) > div.container__col.container__col_9.container__col_ssm-12 > div > div > div > label > div > span")).click();
-//        driver.findElement(By.xpath("//*[contains(text(), 'Facebook')]")).click();
-//        driver.findElement(By.xpath("//*[@id=\"id_contact-1-value\"]")).sendKeys("hello");
-//        logger.info("Контактная информация введена успешно");
+        if (driver.findElements(By.xpath("//input[@value='" + VK_CONTACT + "']")).isEmpty()) {
+            driver.findElement(By.xpath("//button[text()='Добавить']")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/..")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/../../following-sibling::div/descendant::button[@title='VK']")).click();
+            driver.findElement(By.xpath("//div[text()='VK']/../../following-sibling::input")).clear();
+            driver.findElement(By.xpath("//div[text()='VK']/../../following-sibling::input")).sendKeys(VK_CONTACT);
+        }
+
+        if (driver.findElements(By.xpath("//input[@value='" + TG_CONTACT + "']")).isEmpty()) {
+            driver.findElement(By.xpath("//button[text()='Добавить']")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/..")).click();
+            driver.findElement(By.xpath("//span[text()='Способ связи']/../../following-sibling::div/descendant::button[@title='Тelegram']")).click();
+            driver.findElement(By.xpath("//div[text()='Тelegram']/../../following-sibling::input")).clear();
+            driver.findElement(By.xpath("//div[text()='Тelegram']/../../following-sibling::input")).sendKeys(TG_CONTACT);
+        }
+        return this;
     }
 
-    private void clickSaveButton() {
+    public LKPage clickSaveButton() {
         By saveBtn = By.xpath("//*[contains(text(), 'Сохранить и продолжить')]");
         By successText = By.cssSelector("div.hide-sm.no-print > div > span > span");
 
@@ -96,5 +89,14 @@ public class LKPage extends AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, ofSeconds(5));
         wait.until(ExpectedConditions.textToBe(successText, "Данные успешно сохранены"));
         logger.info("Нажата кнопка Сохранить");
+        return this;
+    }
+
+    public MainPage goMainPage(){
+        By otusLogo = By.cssSelector("div > div.header2__logo > a");
+        driver.findElement(otusLogo);
+        WebDriverWait wait = new WebDriverWait(driver, ofSeconds(2));
+        logger.info("Осуществлен переход на главную страницу");
+        return new MainPage(driver);
     }
 }
