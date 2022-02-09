@@ -1,4 +1,4 @@
-package pages;
+package otusPages;
 
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.By;

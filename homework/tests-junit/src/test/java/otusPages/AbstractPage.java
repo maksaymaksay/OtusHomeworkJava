@@ -1,4 +1,4 @@
-package pages;
+package otusPages;
 
 import org.openqa.selenium.WebDriver;
 

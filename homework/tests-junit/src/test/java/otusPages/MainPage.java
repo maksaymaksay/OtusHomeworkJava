@@ -1,4 +1,4 @@
-package pages;
+package otusPages;
 
 import config.ServerConfig;
 import org.aeonbits.owner.ConfigFactory;

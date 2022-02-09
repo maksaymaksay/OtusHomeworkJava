@@ -2,8 +2,8 @@ import org.apache.logging.log4j.LogManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import pages.LKPage;
-import pages.MainPage;
+import otusPages.LKPage;
+import otusPages.MainPage;
 
 public class NewTests extends BaseTest {
     //1. Открыть сайт Otus
