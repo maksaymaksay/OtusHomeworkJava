@@ -16,8 +16,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static java.time.Duration.ofSeconds;
 
-public class Tests {
-    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(Tests.class);
+public class OldTests {
+    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(OldTests.class);
     protected static WebDriver driver;
     private ServerConfig serverConfig = ConfigFactory.create(ServerConfig.class);
 
